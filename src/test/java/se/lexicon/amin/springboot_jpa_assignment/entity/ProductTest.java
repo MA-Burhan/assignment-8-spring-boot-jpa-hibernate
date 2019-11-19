@@ -21,11 +21,15 @@ public class ProductTest {
         assertEquals(0, product.getId());
         assertEquals("Coca-Cola", product.getName());
         assertEquals(15.9, product.getPrice());
+        assertNull(product.getOrderItems());
     }
 
     @Test
     public void product_equals_hashcode(){
-        Product product_copy = new Product("Coca-Cola", 15.9);
+        Product product_copy = new Product();
+        product_copy.setName("Coca-Cola");
+        product_copy.setPrice(15.9);
+
         assertTrue(product.equals(product_copy));
         assertEquals(product.hashCode(), product_copy.hashCode());
     }

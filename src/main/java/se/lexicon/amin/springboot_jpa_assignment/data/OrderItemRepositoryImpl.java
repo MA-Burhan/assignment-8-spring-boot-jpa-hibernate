@@ -1,12 +1,9 @@
 package se.lexicon.amin.springboot_jpa_assignment.data;
 
 import org.springframework.stereotype.Repository;
-import se.lexicon.amin.springboot_jpa_assignment.entity.AppUser;
 import se.lexicon.amin.springboot_jpa_assignment.entity.OrderItem;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +17,10 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
 
 
     @Override
-    public OrderItem save(OrderItem orderItem) {
+    public OrderItem save(OrderItem orderItem) throws IllegalArgumentException {
+        if(orderItem == null) {
+            throw new IllegalArgumentException("Order Item is null");
+        }
         if (orderItem.getId() == 0) {
             em.persist(orderItem);
         } else {

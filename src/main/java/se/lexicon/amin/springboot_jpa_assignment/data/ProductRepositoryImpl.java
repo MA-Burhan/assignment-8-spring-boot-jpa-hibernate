@@ -19,7 +19,10 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 
     @Override
-    public Product save(Product product) {
+    public Product save(Product product) throws IllegalArgumentException {
+        if(product == null) {
+            throw new IllegalArgumentException("Product is null");
+        }
         if (product.getId() == 0) {
             em.persist(product);
         } else {

@@ -9,6 +9,7 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
+
     private int quantity;
 
     @ManyToOne(cascade={
@@ -36,15 +37,6 @@ public class OrderItem {
         setQuantity(quantity);
     }
 
-    public OrderItem(int quantity, Product product) {
-        this(quantity, product, null);
-    }
-
-    public OrderItem(int quantity, Product product, ProductOrder productOrder) {
-        setQuantity(quantity);
-        setProduct(product);
-        setProductOrder(productOrder);
-    }
 
     public int getId() {
         return id;

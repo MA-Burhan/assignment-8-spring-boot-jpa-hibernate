@@ -21,8 +21,5 @@ public class SpringbootJpaAssignmentApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 
-		//System.out.println(repository.findById(12321).isPresent());
-
-
 	}
 }

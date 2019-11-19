@@ -5,11 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import se.lexicon.amin.springboot_jpa_assignment.entity.AppUser;
-import se.lexicon.amin.springboot_jpa_assignment.entity.Product;
-
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,8 +31,6 @@ public class AppUserRepositoryImplTest {
         assertEquals(101, appUser.get().getId());
         assertEquals("Patrik", appUser.get().getFirstName());
         assertEquals("Svensson", appUser.get().getLastName());
-
-
     }
 
     @Test
@@ -69,11 +64,8 @@ public class AppUserRepositoryImplTest {
     @DirtiesContext
     void deleteById() {
         repository.delete(101);
-
         assertFalse(repository.findById(101).isPresent());
-
     }
-
 
     @Test
     @DirtiesContext
@@ -88,6 +80,11 @@ public class AppUserRepositoryImplTest {
         Optional<AppUser> result2 = repository.findById(101);
         assertEquals("svensson_patrik@email.com", result2.get().getEmail());
 
+    }
 
+    @Test
+    @DirtiesContext
+    void save_ifNullTrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> repository.save(null));
     }
 }

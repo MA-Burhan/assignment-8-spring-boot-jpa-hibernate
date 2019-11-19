@@ -2,8 +2,6 @@ package se.lexicon.amin.springboot_jpa_assignment.data;
 
 import org.springframework.stereotype.Repository;
 import se.lexicon.amin.springboot_jpa_assignment.entity.AppUser;
-import se.lexicon.amin.springboot_jpa_assignment.entity.Product;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -22,7 +20,10 @@ public class AppUserRepositoryImpl implements AppUserRepository {
 
 
     @Override
-    public AppUser save(AppUser appUser) {
+    public AppUser save(AppUser appUser) throws IllegalArgumentException {
+        if(appUser == null) {
+            throw new IllegalArgumentException("App User is null");
+        }
         if (appUser.getId() == 0) {
             em.persist(appUser);
         } else {

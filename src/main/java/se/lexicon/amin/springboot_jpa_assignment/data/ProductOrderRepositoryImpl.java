@@ -1,29 +1,28 @@
 package se.lexicon.amin.springboot_jpa_assignment.data;
 
 import org.springframework.stereotype.Repository;
-import se.lexicon.amin.springboot_jpa_assignment.entity.AppUser;
-import se.lexicon.amin.springboot_jpa_assignment.entity.OrderItem;
-import se.lexicon.amin.springboot_jpa_assignment.entity.Product;
 import se.lexicon.amin.springboot_jpa_assignment.entity.ProductOrder;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @Transactional
-public class ProductOrderRepositoryImpl {
+public class ProductOrderRepositoryImpl implements ProductOrderRepository {
 
     @PersistenceContext
     EntityManager em;
 
 
-    public ProductOrder save(ProductOrder productOrder) {
+    @Override
+    public ProductOrder save(ProductOrder productOrder) throws IllegalArgumentException {
+        if(productOrder == null) {
+            throw new IllegalArgumentException("Product Order is null");
+        }
         if (productOrder.getId() == 0) {
             em.persist(productOrder);
         } else {
@@ -34,11 +33,13 @@ public class ProductOrderRepositoryImpl {
     }
 
 
+    @Override
     public Optional<ProductOrder> findById(int id) {
 
         return Optional.ofNullable(em.find(ProductOrder.class, id));
     }
 
+    @Override
     public List<ProductOrder> findByDate(LocalDateTime orderDate) {
         TypedQuery<ProductOrder> query = em.createQuery("SELECT p FROM ProductOrder p WHERE p.orderDateTime= ?1",
                                         ProductOrder.class);
@@ -46,6 +47,7 @@ public class ProductOrderRepositoryImpl {
         return query.getResultList();
     }
 
+    @Override
     public List<ProductOrder> findByAppUserId(int appUserId) {
 
         TypedQuery<ProductOrder> query = em.createQuery("SELECT p FROM ProductOrder p WHERE p.customer.id= ?1", ProductOrder.class);
@@ -53,6 +55,7 @@ public class ProductOrderRepositoryImpl {
         return query.getResultList();
     }
 
+    @Override
     public List<ProductOrder> findByProductId(int productId) {
 
 
@@ -64,6 +67,7 @@ public class ProductOrderRepositoryImpl {
 
     }
 
+    @Override
     public List<ProductOrder> findByProductName(String productName) {
 
 
@@ -75,10 +79,12 @@ public class ProductOrderRepositoryImpl {
     }
 
 
+    @Override
     public List<ProductOrder> findAll() {
         return em.createQuery("Select p from ProductOrder p", ProductOrder.class).getResultList();
     }
 
+        @Override
         public void delete(int id){
         Optional<ProductOrder> result = findById(id);
 

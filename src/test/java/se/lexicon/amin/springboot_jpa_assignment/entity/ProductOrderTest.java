@@ -19,10 +19,10 @@ public class ProductOrderTest {
     @BeforeEach
     public void setup() {
         productOrder = productOrder = new ProductOrder(LocalDateTime.of(2019, 1, 1, 0, 0, 0));
-
         product = new Product("Coca-Cola", 15.9);
+        orderItem = new OrderItem(2);
+        orderItem.setProduct(product);
 
-        orderItem = new OrderItem(2, product);
         List<OrderItem> orderItemList = new ArrayList<>();
         orderItemList.add(orderItem);
 
@@ -42,7 +42,8 @@ public class ProductOrderTest {
 
     @Test
     public void productOrder_equals_hashcode(){
-        ProductOrder productOrder_copy = new ProductOrder(LocalDateTime.of(2019, 1, 1, 0, 0, 0));
+        ProductOrder productOrder_copy = new ProductOrder();
+        productOrder_copy.setOrderDateTime(LocalDateTime.of(2019, 1, 1, 0, 0, 0));
         assertTrue(productOrder.equals(productOrder_copy));
         assertEquals(productOrder.hashCode(), productOrder_copy.hashCode());
     }
@@ -57,7 +58,8 @@ public class ProductOrderTest {
 
     @Test
     public void addOrderItem() {
-        OrderItem newOrderItem= new OrderItem(1, product);
+        OrderItem newOrderItem= new OrderItem(1);
+        newOrderItem.setProduct(product);
 
         productOrder.addOrderItem(newOrderItem);
 
@@ -65,6 +67,12 @@ public class ProductOrderTest {
 
         assertEquals(newOrderItem, retrievedOrderItem);
         assertEquals(productOrder, retrievedOrderItem.getProductOrder());
+    }
+
+    @Test
+    public void addOrderItem_ifNullThrowsException() {
+
+        assertThrows(IllegalArgumentException.class, () -> productOrder.addOrderItem(null));
     }
 
     @Test
@@ -78,8 +86,16 @@ public class ProductOrderTest {
     }
 
     @Test
+    public void removeOrderItem_ifNullThrowsException() {
+
+        assertThrows(IllegalArgumentException.class, () -> productOrder.removeOrderItem(null));
+    }
+
+    @Test
     public void calculateTotalPrice() {
-        productOrder.addOrderItem(new OrderItem(1, product));
+        OrderItem newOrderItem = new OrderItem(1);
+        newOrderItem.setProduct(product);
+        productOrder.addOrderItem(newOrderItem);
 
         assertEquals(47.7, productOrder.calculateTotalPrice());
 

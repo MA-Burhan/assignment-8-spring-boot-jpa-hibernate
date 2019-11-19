@@ -97,6 +97,11 @@ public class ProductOrderRepositoryImplTest {
         Optional<ProductOrder> result2 = repository.findById(101);
         assertEquals(LocalDateTime.of(2019,2,1,0,0,0), result2.get().getOrderDateTime());
 
+    }
 
+    @Test
+    @DirtiesContext
+    public void save_ifNullTrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> repository.save(null));
     }
 }

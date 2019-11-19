@@ -33,7 +33,6 @@ public class AppUser {
         return id;
     }
 
-
     public String getFirstName() {
         return firstName;
     }
@@ -71,13 +70,25 @@ public class AppUser {
             productOrders = new ArrayList<>();
         }
 
-        productOrders.add(productOrder);
-        productOrder.setCustomer(this);
+        if(productOrder == null) {
+            throw new IllegalArgumentException("Product order is null");
+        }
+
+        if(!productOrders.contains(productOrder)) {
+
+            productOrders.add(productOrder);
+            productOrder.setCustomer(this);
+        }
     }
 
     public void removeProductOrder(ProductOrder productOrder) {
         if(productOrders != null) {
-            productOrders.remove(productOrder);
+            if(productOrder == null) {
+                throw new IllegalArgumentException("Product order is null");
+            }
+            if(productOrders.contains(productOrder)) {
+                productOrders.remove(productOrder);
+            }
         }
     }
 

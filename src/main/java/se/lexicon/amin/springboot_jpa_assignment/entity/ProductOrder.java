@@ -34,11 +34,6 @@ public class ProductOrder {
         setOrderDateTime(orderDateTime);
     }
 
-    public ProductOrder(LocalDateTime orderDateTime, AppUser customer) {
-        setOrderDateTime(orderDateTime);
-        setCustomer(customer);
-    }
-
     public int getId() {
         return id;
     }
@@ -72,14 +67,27 @@ public class ProductOrder {
             orderItems = new ArrayList<>();
         }
 
-       orderItems.add(orderItem);
-        orderItem.setProductOrder(this);
+        if(orderItem == null) {
+            throw new IllegalArgumentException("Order item is null");
+        }
+
+        if(!orderItems.contains(orderItem)) {
+
+            orderItems.add(orderItem);
+            orderItem.setProductOrder(this);
+        }
+
     }
 
     public void removeOrderItem(OrderItem orderItem){
 
-        if (orderItems != null) {
-            orderItems.remove(orderItem);
+        if(orderItems != null) {
+            if(orderItem == null) {
+                throw new IllegalArgumentException("Order item is null");
+            }
+            if(orderItems.contains(orderItem)) {
+                orderItems.remove(orderItem);
+            }
         }
     }
 

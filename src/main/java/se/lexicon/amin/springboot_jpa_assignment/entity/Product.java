@@ -10,6 +10,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private double price;
 
@@ -29,7 +30,6 @@ public class Product {
         return id;
     }
 
-
     public String getName() {
         return name;
     }
@@ -48,10 +48,6 @@ public class Product {
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
     }
 
     @Override

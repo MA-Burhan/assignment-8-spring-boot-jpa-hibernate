@@ -17,8 +17,8 @@ public class AppUserTest {
     @BeforeEach
     public void setup() {
         appUser = new AppUser("John", "Doe", "john.doe@email.com");
-        productOrder = new ProductOrder(LocalDateTime.of(2019, 1, 1, 0, 0, 0), appUser);
-
+        productOrder = new ProductOrder(LocalDateTime.of(2019, 1, 1, 0, 0, 0));
+        productOrder.setCustomer(appUser);
         List<ProductOrder> productOrderList = new ArrayList<>();
         productOrderList.add(productOrder);
         appUser.setProductOrders(productOrderList);
@@ -36,7 +36,10 @@ public class AppUserTest {
 
     @Test
     public void appUser_equals_hashcode(){
-        AppUser appUser_copy = new AppUser("John", "Doe", "john.doe@email.com");
+        AppUser appUser_copy = new AppUser();
+        appUser_copy.setFirstName("John");
+        appUser_copy.setLastName("Doe");
+        appUser_copy.setEmail("john.doe@email.com");
         assertTrue(appUser.equals(appUser_copy));
         assertEquals(appUser.hashCode(), appUser_copy.hashCode());
     }
@@ -66,6 +69,11 @@ public class AppUserTest {
     }
 
     @Test
+    public void addProductOrder_ifNullThrowsException() {
+
+        assertThrows(IllegalArgumentException.class, () -> appUser.addProductOrder(null));
+    }
+    @Test
     public void removeProductOrder(){
 
         assertTrue(appUser.getProductOrders().contains(productOrder));
@@ -75,4 +83,12 @@ public class AppUserTest {
         assertFalse(appUser.getProductOrders().contains(productOrder));
         assertTrue(appUser.getProductOrders().isEmpty());
     }
+
+    @Test
+    public void removeProductOrder_ifNullThrowsException() {
+
+        assertThrows(IllegalArgumentException.class, () -> appUser.removeProductOrder(null));
+    }
+
+
 }

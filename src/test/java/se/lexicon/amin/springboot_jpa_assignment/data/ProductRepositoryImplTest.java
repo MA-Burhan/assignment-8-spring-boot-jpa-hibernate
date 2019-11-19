@@ -66,6 +66,11 @@ public class ProductRepositoryImplTest {
         Optional<Product> product2 = repository.findById(101);
         assertEquals("fanta Exotic", product2.get().getName());
 
+    }
 
+    @Test
+    @DirtiesContext
+    public void save_ifNullTrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> repository.save(null));
     }
 }
