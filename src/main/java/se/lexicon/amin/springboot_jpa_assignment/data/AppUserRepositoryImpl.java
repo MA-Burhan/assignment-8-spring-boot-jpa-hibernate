@@ -15,7 +15,7 @@ public class AppUserRepositoryImpl implements AppUserRepository {
 
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
 
 

@@ -86,9 +86,7 @@ public class AppUser {
             if(productOrder == null) {
                 throw new IllegalArgumentException("Product order is null");
             }
-            if(productOrders.contains(productOrder)) {
-                productOrders.remove(productOrder);
-            }
+            productOrders.remove(productOrder);
         }
     }
 

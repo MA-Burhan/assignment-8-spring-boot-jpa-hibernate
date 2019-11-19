@@ -85,9 +85,7 @@ public class ProductOrder {
             if(orderItem == null) {
                 throw new IllegalArgumentException("Order item is null");
             }
-            if(orderItems.contains(orderItem)) {
-                orderItems.remove(orderItem);
-            }
+            orderItems.remove(orderItem);
         }
     }
 

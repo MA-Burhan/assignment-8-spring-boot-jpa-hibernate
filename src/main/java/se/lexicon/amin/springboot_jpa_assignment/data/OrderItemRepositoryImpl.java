@@ -13,7 +13,7 @@ import java.util.Optional;
 public class OrderItemRepositoryImpl implements OrderItemRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
 
     @Override

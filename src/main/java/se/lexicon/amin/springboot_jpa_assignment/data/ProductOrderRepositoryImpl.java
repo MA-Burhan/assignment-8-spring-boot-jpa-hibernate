@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ProductOrderRepositoryImpl implements ProductOrderRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
 
     @Override
