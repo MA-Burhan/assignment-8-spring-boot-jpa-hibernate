@@ -21,9 +21,15 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, double price) {
+    public Product(int id, String name, double price, List<OrderItem> orderItems) {
+        this.id = id;
         setName(name);
         setPrice(price);
+        setOrderItems(orderItems);
+    }
+
+    public Product(String name, double price) {
+        this(0, name, price, null);
     }
 
     public int getId() {
@@ -44,6 +50,10 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public List<OrderItem> getOrderItems() {
