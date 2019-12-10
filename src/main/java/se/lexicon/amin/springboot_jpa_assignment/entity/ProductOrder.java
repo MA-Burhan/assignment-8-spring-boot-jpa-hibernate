@@ -30,8 +30,15 @@ public class ProductOrder {
     public ProductOrder() {
     }
 
-    public ProductOrder(LocalDateTime orderDateTime) {
+    public ProductOrder(int id, LocalDateTime orderDateTime, List<OrderItem> orderItems, AppUser customer) {
+        this.id = id;
         setOrderDateTime(orderDateTime);
+        setOrderItems(orderItems);
+        setCustomer(customer);
+    }
+
+    public ProductOrder(LocalDateTime orderDateTime) {
+        this(0, orderDateTime, null, null);
     }
 
     public int getId() {
