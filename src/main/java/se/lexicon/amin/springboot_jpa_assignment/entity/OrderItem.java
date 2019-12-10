@@ -33,8 +33,15 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(int quantity) {
+    public OrderItem(int id, int quantity, Product product, ProductOrder productOrder) {
+        this.id = id;
         setQuantity(quantity);
+        setProduct(product);
+        setProductOrder(productOrder);
+    }
+
+    public OrderItem(int quantity) {
+        this(0, quantity, null, null);
     }
 
 
