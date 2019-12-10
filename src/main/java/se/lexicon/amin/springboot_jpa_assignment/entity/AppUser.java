@@ -23,10 +23,16 @@ public class AppUser {
     public AppUser() {
     }
 
-    public AppUser(String firstName, String lastName, String email) {
+    public AppUser(int id, String firstName, String lastName, String email, List<ProductOrder> productOrders) {
+        this.id = id;
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
+        setProductOrders(productOrders);
+    }
+
+    public AppUser(String firstName, String lastName, String email) {
+        this(0, firstName, lastName, email, null);
     }
 
     public int getId() {
